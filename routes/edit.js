@@ -7,7 +7,6 @@ router.route('/forgotPassword')
     .post(function (req, res) {
         let otp=utility.generateMail(req.body.email);
         let findquery={email: req.body.email}
-        console.log(otp);
         let updatequery={verifyCode:otp}
         User.update(findquery, updatequery, function(err){
             if(err){
@@ -20,7 +19,7 @@ router.route('/forgotPassword')
 
 router.route('/verifyCode')
     .post(function(req,res){
-        console.log(req.body);
+        //console.log(req.body);
         User.findOne({ 'email': req.body.email }, function (err, user) {
             if (err) {
                 res.send("db error");
@@ -36,4 +35,21 @@ router.route('/verifyCode')
         });
     });
 
+// pass jwt token to change password
+router.route('/changePassword')
+    .post(function(req,res){
+        let id = utility.verifyToken(req.headers.token);
+        if (id instanceof Error) {
+            res.status(401).send("Unauthorised Acess");
+        }
+        console.log("id", id);
+        let findquery={_id: id}
+        let updatequery={password:req.body.password}
+        User.update(findquery, updatequery, function(err){
+            if(err){
+                res.status(401).send("Error in database");
+            }
+            res.send("Password Updated");
+        })
+    })
 module.exports = router;

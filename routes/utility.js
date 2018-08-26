@@ -7,6 +7,17 @@ function generateToken(id) {
   }, 'secret', { expiresIn: '10days' });
 };
 
+function verifyToken(token){
+  let jwtToken=token;
+        try {
+            var decoded = jwt.verify(jwtToken, 'secret');
+            console.log(decoded);
+        } catch (e) {
+            throw new Error("Error in token");
+        }
+        return decoded.data.id;
+}
+
 function generateMail(email) {
   var otp=Math.floor(100000 + Math.random() * 900000);
   var transporter = nodemailer.createTransport({
@@ -35,4 +46,5 @@ function generateMail(email) {
 }
 
 module.exports.generateToken = generateToken;
+module.exports.verifyToken=verifyToken;
 module.exports.generateMail=generateMail;

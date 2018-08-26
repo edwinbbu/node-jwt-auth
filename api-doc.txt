@@ -1,0 +1,64 @@
+POST http://localhost:8000/user/signup
+{  
+   "firstName":"happy",
+   "username":"happy2",
+   "gender":"male",
+   "mobile":"8281331981",
+   "email":"edwinbbu3@gmail.com",
+   "password":"password"
+}
+
+signup successfull
+
+POST http://localhost:8000/user/login
+{  
+   "username":"happy",
+   "password":"password"
+}
+
+{
+    "message": "Successfully logged in",
+    "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQwMmIzMWZhYTY3MTY2In0sImlhdCI6MTUzNTI4ODAwNywiZXhwIjoxNTM2MTUyMDA3fQ.poMYy1x8m4yc6SAPjMKvhx-lUnsFUN3xbfkv3Rd3koU"
+}
+
+GET http://localhost:8000/user/details
+header 
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQwMmIzMWZhYTY3MTY2In0sImlhdCI6MTUzNTI4ODAwNywiZXhwIjoxNTM2MTUyMDA3fQ.poMYy1x8m4yc6SAPjMKvhx-lUnsFUN3xbfkv3Rd3koU
+
+{
+    "_id": "5b82977c34402b31faa67166",
+    "firstName": "happy",
+    "username": "happy",
+    "gender": "male",
+    "mobile": 8281331981,
+    "email": "edwinbbu@gmail.com",
+    "active": true,
+    "createdAt": "2018-08-26T12:05:16.719Z",
+    "verifyCode": 356078
+}
+
+POST http://localhost:8000/user/forgotPassword
+{  
+   "email":"edwinbbu@gmail.com"
+}
+
+Verify OTP send to email
+
+POST http://localhost:8000/user/verifyCode
+{  
+   "email":"edwinbbu@gmail.com",
+   "code": 356078
+}
+
+{
+    "message": "Code verified",
+    "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQwMmIzMWZhYTY3MTY2In0sImlhdCI6MTUzNTI4NzA3OSwiZXhwIjoxNTM2MTUxMDc5fQ.FlwrpR1Er0J7-qqss_IoxHHAptzvriDFyFBvgDB6z7s"
+}
+
+POST http://localhost:8000/user/changePassword
+header 
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQwMmIzMWZhYTY3MTY2In0sImlhdCI6MTUzNTI4ODAwNywiZXhwIjoxNTM2MTUyMDA3fQ.poMYy1x8m4yc6SAPjMKvhx-lUnsFUN3xbfkv3Rd3koU
+
+{ "password": "password123"}
+
+Password Updated

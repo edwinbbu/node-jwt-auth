@@ -5,21 +5,27 @@ var utility = require('./utility.js');
 
 router.route('/')
     .get(function (req, res) {
-        let id = utility.verifyToken(req.headers.token);
-        if (id instanceof Error) {
-            res.status(401).send("Unauthorised Acess");
+        if (!req.headers.token) {
+            res.send("Please provide jwt token");
         }
-        console.log("id", id);
-        User.findOne({ '_id': id }, function (err, user) {
-            if (err) {
-                res.send("No user found for the token");
+        else {
+            let id = utility.verifyToken(req.headers.token);
+            if (id instanceof Error) {
+                res.status(401).send("Unauthorised Acess");
             }
-            else {
-                user.password = undefined;
-                delete user.password;
-                res.send(user);
-            }
-        });
+            console.log("id", id);
+            User.findOne({ '_id': id }, function (err, user) {
+                if (err) {
+                    res.send("No user found for the token");
+                }
+                else {
+                    user.password = undefined;
+                    delete user.password;
+                    res.send(user);
+                }
+            });
+        }
+
     })
     .post(function (req, res) {
         User.findOne({ 'username': req.body.username }, function (err, user) {

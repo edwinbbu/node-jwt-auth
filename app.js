@@ -12,14 +12,15 @@ app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }))
 app.use(morgan('dev'));
 
+app.get('/',function(req,res){
+    res.send("Cubereum Auth Service");
+})
+
 var signup = require('./routes/signup.js');
 var login = require('./routes/login.js');
 var details = require('./routes/details.js');
 var edit = require('./routes/edit.js');
 
-app.get('/',function(req,res){
-    res.send("Cubereum Auth Service");
-})
 app.use('/user/signup',signup);
 app.use('/user/login',login);
 app.use('/user/details',details);

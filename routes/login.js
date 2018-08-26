@@ -8,22 +8,29 @@ router.route('/')
         res.render('login');
     })
     .post(function (req, res) {
-        User.findOne({ 'username': req.body.username }, function (err, user) {
-            if (err) {
-                res.send("db error");
-            }
-            if (user) {
-                if (user.validPassword(req.body.password)) {
-                    let token=utility.generateToken(user._id);
-                    res.send({message:"Successfully logged in",jwtToken:token});
+        if(!(req.body.username && req.body.password))
+        {
+            res.send("Provide username and password");
+        }
+        else{
+            User.findOne({ 'username': req.body.username }, function (err, user) {
+                if (err) {
+                    res.send("db error");
                 }
-                else
-                    res.send("Wrong Password");
-            }
-            else {
-                res.send("No User Found");
-            }
-        });
+                if (user) {
+                    if (user.validPassword(req.body.password)) {
+                        let token=utility.generateToken(user._id);
+                        res.send({message:"Successfully logged in",jwtToken:token});
+                    }
+                    else
+                        res.send("Wrong Password");
+                }
+                else {
+                    res.send("No User Found");
+                }
+            });
+        }
+        
     });
 
 module.exports = router;

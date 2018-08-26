@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 function generateToken(id){
 
 return jwt.sign({
-    data: id
+    data: {id: id}
   }, 'secret', { expiresIn: '10days' });
 };
 

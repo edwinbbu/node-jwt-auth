@@ -5,7 +5,6 @@ var parser = require('body-parser')
 var session = require('express-session');
 var expressLayouts = require('express-ejs-layouts');
 var morgan = require('morgan');
-var passport = require('passport');
 
 var db=require('./config/database.js');
 
@@ -27,17 +26,14 @@ app.use(session({
     resave: true
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 var index=require('./routes/index.js');
 var signup = require('./routes/signup.js');
 var login = require('./routes/login.js');
-
+var details = require('./routes/details.js');
 app.use('/',index);
 app.use('/user/signup',signup);
 app.use('/user/login',login);
-
+app.use('/user/details',details);
 app.listen(port, function (error) {
     console.log('Server running on port ' + port);
 });

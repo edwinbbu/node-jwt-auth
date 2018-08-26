@@ -19,7 +19,6 @@ router.route('/')
                 delete user.password;
                 res.send(user);
             }
-
         });
     })
     .post(function (req, res) {

@@ -62,3 +62,9 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQw
 { "password": "password123"}
 
 Password Updated
+
+POST http://localhost:8000/user/signout
+header 
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNWI4Mjk3N2MzNDQwMmIzMWZhYTY3MTY2In0sImlhdCI6MTUzNTI4ODAwNywiZXhwIjoxNTM2MTUyMDA3fQ.poMYy1x8m4yc6SAPjMKvhx-lUnsFUN3xbfkv3Rd3koU
+
+Sign out successful

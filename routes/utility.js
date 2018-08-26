@@ -1,10 +1,10 @@
 var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 
-function generateToken(id) {
+function generateToken(id,secret="secret") {
   return jwt.sign({
     data: { id: id }
-  }, 'secret', { expiresIn: '10days' });
+  }, secret, { expiresIn: '10d' });
 };
 
 function verifyToken(token){

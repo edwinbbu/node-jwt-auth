@@ -1,7 +1,6 @@
 var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 
-
 function generateToken(id) {
   return jwt.sign({
     data: { id: id }
@@ -9,7 +8,7 @@ function generateToken(id) {
 };
 
 function generateMail(email) {
-
+  var otp=Math.floor(100000 + Math.random() * 900000);
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -22,7 +21,7 @@ function generateMail(email) {
     from: 'edwinbbu@gmail.com',
     to: email,
     subject: 'Reset Your Password',
-    text: 'OTP to reset password: '+Math.floor(100000 + Math.random() * 900000)
+    text: 'OTP to reset password: '+otp
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -32,6 +31,7 @@ function generateMail(email) {
       console.log('Email sent: ' + info.response);
     }
   });
+  return otp;
 }
 
 module.exports.generateToken = generateToken;

@@ -23,7 +23,7 @@ var UserSchema = mongoose.Schema({
         required:true
     },
     mobile: { 
-        type: String,
+        type: Number,
         required:true
     },
     password: { 
@@ -34,9 +34,12 @@ var UserSchema = mongoose.Schema({
         type: Boolean,
         required:true
     },
-    created_at: { 
+    createdAt: { 
         type: Date, 
         default: Date.now 
+    },
+    verifyCode: { 
+        type: Number
     },
 
 });

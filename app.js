@@ -7,6 +7,8 @@ var expressLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 
+var db=require('./config/database.js');
+
 var app = express();
 var port = process.env.port;
 

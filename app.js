@@ -4,7 +4,6 @@ var path = require('path');
 var parser = require('body-parser')
 var session = require('express-session');
 var expressLayouts = require('express-ejs-layouts');
-var flash = require('connect-flash');
 var morgan = require('morgan');
 var passport = require('passport');
 
@@ -30,7 +29,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash()); // flash messages
 
 var index=require('./routes/index.js');
 var user = require('./routes/user.js');

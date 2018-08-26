@@ -17,11 +17,11 @@ router.route('/')
             'email': req.body.email,
             'active': true
         }
-        User.findOne({ 'username': req.body.username }, function (err, user) {
+        User.findOne({$or:[ {'username':req.body.username }, {'email':req.body.email}]}, function (err, user) {
             if (err)
                 res.send("Error in signup");
             if (user) {
-                res.send('This username is already taken.');
+                res.send('This username/email is already taken.');
             }
             else {
                 var newUser = new User(context);

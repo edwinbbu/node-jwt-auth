@@ -6,6 +6,7 @@ var session = require('express-session');
 var expressLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 var morgan = require('morgan');
+var passport = require('passport');
 
 var db=require('./config/database.js');
 
@@ -15,7 +16,7 @@ var port = process.env.port;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static('static'));
+app.use(express.static(__dirname+'/static'));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }))
 app.use(expressLayouts);
@@ -27,15 +28,14 @@ app.use(session({
     resave: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash()); // flash messages
 
-var index=require('./routes/index.js')
-
+var index=require('./routes/index.js');
+var user = require('./routes/user.js');
 app.use('/',index);
-
-// app.get('/', function(req,res){
-//     res.send("Hello");
-// })
+app.use('/user',user);
 
 app.listen(port, function (error) {
     console.log('Server running on port ' + port);

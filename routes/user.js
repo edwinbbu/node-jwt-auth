@@ -9,11 +9,23 @@ router.route('/signup')
     .get(function (req, res) {
         res.render('signup');
     })
-    .post(passport.authenticate('signup',{
-       successRedirect: '/',
-       failureRedirect: '/signup',
-       failureFlash: true
-    }));
+    .post(function(req,res){
+
+        var context = {
+            'firstName': req.body.firstName,
+            'lastName': req.body.lastName,
+            'username': req.body.username,
+            'gender': req.body.gender,
+            'mobile': req.body.mobile,
+            'email': req.body.email,
+            'password': req.body.password,
+            'active': true
+        }
+        console.log(context);
+        var user = new User(context);
+        user.save();
+        res.send('signup successfull');
+    });
 
 //login
 router.route('/login')

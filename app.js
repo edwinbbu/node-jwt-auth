@@ -30,10 +30,13 @@ var index=require('./routes/index.js');
 var signup = require('./routes/signup.js');
 var login = require('./routes/login.js');
 var details = require('./routes/details.js');
+var edit = require('./routes/edit.js');
+
 app.use('/',index);
 app.use('/user/signup',signup);
 app.use('/user/login',login);
 app.use('/user/details',details);
+app.use('/user',edit);
 app.listen(port, function (error) {
     console.log('Server running on port ' + port);
 });

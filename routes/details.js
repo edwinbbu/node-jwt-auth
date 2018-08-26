@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/user.js');
 var utility = require('./utility.js');
 var jwt = require('jsonwebtoken');
-//login
+
 router.route('/')
     .get(function (req, res) {
         let jwtToken=req.headers.token;

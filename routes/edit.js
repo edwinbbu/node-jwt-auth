@@ -20,7 +20,20 @@ router.route('/forgotPassword')
 
 router.route('/verifyCode')
     .post(function(req,res){
-
+        console.log(req.body);
+        User.findOne({ 'email': req.body.email }, function (err, user) {
+            if (err) {
+                res.send("db error");
+            }
+            console.log(user);
+            if(user.verifyCode==req.body.code){
+                let token=utility.generateToken(user._id);
+                res.send({message:"Code verified",jwtToken:token});
+            }
+            else{
+                res.send("Invalid Code")
+            }
+        });
     });
 
 module.exports = router;

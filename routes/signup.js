@@ -1,16 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var User= require('../models/user.js');
-var passport = require('passport');
-require('../config/passport') 
 
 //signup
-router.route('/signup')
+router.route('/')
     .get(function (req, res) {
         res.render('signup');
     })
     .post(function(req,res){
-
         var context = {
             'firstName': req.body.firstName,
             'lastName': req.body.lastName,
@@ -18,24 +15,18 @@ router.route('/signup')
             'gender': req.body.gender,
             'mobile': req.body.mobile,
             'email': req.body.email,
-            'password': req.body.password,
             'active': true
         }
-        console.log(context);
+        //console.log(context);
         var user = new User(context);
-        user.save();
-        res.send('signup successfull');
-    });
+        user.password = user.generateHash(req.body.password);
 
-//login
-router.route('/login')
-    .get(function (req, res) {
-        res.render('login');
-    })
-    .post(passport.authenticate('login',{
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+          user.save(function (err) {
+            if (err){
+              res.send("Error in signup");
+            } 
+            res.send('signup successfull');
+          });
+    });
 
 module.exports = router;

@@ -31,9 +31,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var index=require('./routes/index.js');
-var user = require('./routes/user.js');
+var signup = require('./routes/signup.js');
+var login = require('./routes/login.js');
+
 app.use('/',index);
-app.use('/user',user);
+app.use('/user/signup',signup);
+app.use('/user/login',login);
 
 app.listen(port, function (error) {
     console.log('Server running on port ' + port);
